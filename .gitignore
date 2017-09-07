@@ -1,0 +1,21 @@
+# Logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# IDE Settings
+/.vscode/
+
+# Build cache
+/scripts/.rpt2_cache/
+
+# Build files
+/public/scripts/
