@@ -15,7 +15,7 @@ export default {
 		sourcemaps(),
 		alias(
 			{
-				'resolve': ['.ts', '.js'],
+				'resolve': ['.ts', '.tsx', '.js', '.jsx'],
 				'~': __dirname,
 			}
 		),
