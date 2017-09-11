@@ -17,6 +17,7 @@ export default {
 			{
 				'resolve': ['.ts', '.tsx', '.js', '.jsx'],
 				'~': __dirname,
+				'classjoin': '../node_modules/classjoin/es2015/index.js',
 			}
 		),
 		nodeResolve(
