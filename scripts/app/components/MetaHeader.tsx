@@ -79,6 +79,7 @@ function MetaHeader(
 				<a
 					href={image.original}
 					target="_blank"
+					title={sourceName}
 				>
 					Открыть оригинал ({dimensions}, {sizeStr})
 				</a>
