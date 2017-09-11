@@ -23,6 +23,9 @@ function GridSidebar( {picture}: GridSidebarProps ): JSX.Element
 				!picture
 				? ''
 				: [
+					<figure class="preview">
+						<img src={picture.image.preview} alt={picture.source} />
+					</figure>,
 					<MetaHeader picture={picture} />,
 					<MetadataList picture={picture} />,
 				]
