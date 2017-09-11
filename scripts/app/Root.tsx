@@ -7,7 +7,7 @@ import readGalleryFile, {GalleryAlbum} from '~/app/utils/readGalleryFile';
  */
 interface RootProps
 {
-	/** Название галереи */
+	/** Internal name of the gallery */
 	galleryName: string;
 }
 
@@ -18,6 +18,8 @@ interface RootState
 {
 	/** Gallery album */
 	album: GalleryAlbum;
+	/** Index of the selected picture */
+	currentPictureIndex?: number;
 }
 
 /**
@@ -61,11 +63,28 @@ class Root extends Component<RootProps, RootState>
 	/**
 	 * Render component.
 	 */
-	public render( _props: RootProps, {album}: RootState ): JSX.Element
+	public render(
+		_props: RootProps,
+		{album, currentPictureIndex}: RootState,
+	): JSX.Element
 	{
 		return (
-			<Grid album={album} />
+			<Grid
+				album={album}
+				currentPictureIndex={currentPictureIndex}
+				onSelectPicture={this.onSelectPicture}
+			/>
 		);
+	}
+	
+	/**
+	 * Handle selection of the picture.
+	 * 
+	 * @param currentPictureIndex Index of the picture in array.
+	 */
+	private onSelectPicture = ( currentPictureIndex: number ): void =>
+	{
+		this.setState( {currentPictureIndex} );
 	}
 	
 	/**

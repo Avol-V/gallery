@@ -1,3 +1,4 @@
+import classJoin from 'classjoin';
 import {h} from 'preact';
 
 /**
@@ -5,17 +6,26 @@ import {h} from 'preact';
  */
 interface GridListItemProps
 {
-	/** URI изображения */
+	/** URI of the image */
 	image: string;
+	/** Is this item is currently selected? */
+	current: boolean;
+	/** Handle selection */
+	onSelect(): void;
 }
 
 /**
  * Элемент списка вида сеткой.
  */
-function GridListItem( {image}: GridListItemProps ): JSX.Element
+function GridListItem(
+	{image, current, onSelect}: GridListItemProps,
+): JSX.Element
 {
 	return (
-		<li>
+		<li
+			class={classJoin( {current} )}
+			onClick={onSelect}
+		>
 			<img src={image} alt="" />
 		</li>
 	);
