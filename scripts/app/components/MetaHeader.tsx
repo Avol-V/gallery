@@ -38,7 +38,10 @@ const MONTHS = [
  */
 function MetaHeader(
 	{
-		picture: {title, caption, timestamp, timezoneOffset, source},
+		picture: {
+			title, caption, timestamp, timezoneOffset, source, width, height,
+			size, image,
+		},
 	}: MetaHeaderProps,
 ): JSX.Element
 {
@@ -52,6 +55,16 @@ function MetaHeader(
 			('0' + date.getMinutes()).slice( -2 )
 		} UTC${timezoneOffset < 0 ? '' : '+'}${timezoneOffset / 60}`;
 	const dateISO = (new Date( timestamp )).toISOString();
+	const dimensions = (
+		( width && height )
+		? `${width}×${height}`
+		: '?×?'
+	);
+	const sizeStr = (
+		size
+		? Math.round( size / 1024 / 1024 ) + ' М'
+		: '? М'
+	);
 	
 	return (
 		<header>
@@ -62,6 +75,14 @@ function MetaHeader(
 				: ''
 			}
 			<time dateTime={dateISO}>{dateStr}</time>
+			<div class="original">
+				<a
+					href={image.original}
+					target="_blank"
+				>
+					Открыть оригинал ({dimensions}, {sizeStr})
+				</a>
+			</div>
 		</header>
 	);
 }
