@@ -15,7 +15,7 @@ abstract class StyledComponent<TProps, TState>
 	/**
 	 * Is CSS file already loaded?
 	 */
-	private static cssLoaded: boolean = false;
+	protected static cssLoaded: boolean = false;
 	
 	/**
 	 * Component with personal stylesheet file.
