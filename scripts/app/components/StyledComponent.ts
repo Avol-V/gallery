@@ -10,10 +10,7 @@ abstract class StyledComponent<TProps, TState>
 	/**
 	 * Component name for CSS.
 	 */
-	public static get cssName(): string
-	{
-		return convertCamelToKebabCase( this.name );
-	}
+	public static readonly CSS_NAME: string;
 	
 	/**
 	 * Is CSS file already loaded?
@@ -31,7 +28,7 @@ abstract class StyledComponent<TProps, TState>
 		
 		if ( !self.cssLoaded )
 		{
-			loadCss( self.cssName )
+			loadCss( self.CSS_NAME )
 				.then(
 					() =>
 					{
@@ -43,32 +40,6 @@ abstract class StyledComponent<TProps, TState>
 		}
 	}
 	
-}
-
-/**
- * Memoized results of convertCamelToKebabCase function.
- */
-const camelToKebabMemo = new Map<string, string>();
-
-/**
- * Convert camelCase or PascalCase name to kebab-case.
- * 
- * @param value Name in camelCase.
- * @returns Name in kebab-case.
- */
-function convertCamelToKebabCase( value: string ): string
-{
-	if ( camelToKebabMemo.has( value ) )
-	{
-		// tslint:disable-next-line:no-non-null-assertion
-		return camelToKebabMemo.get( value )!;
-	}
-	
-	const result = value.replace( /(.)([A-Z][^A-Z])/g, '$1-$2' ).toLowerCase();
-	
-	camelToKebabMemo.set( value, result );
-	
-	return result;
 }
 
 /**
