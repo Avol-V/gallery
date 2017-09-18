@@ -23,8 +23,9 @@ function loadCss( name: string ): Promise<void>
 		{
 			// tslint:disable-next-line:no-unnecessary-callback-wrapper
 			link.onload = () => resolve();
-			// tslint:disable-next-line:no-unnecessary-callback-wrapper
-			link.onerror = () => reject();
+			link.onerror = () => reject(
+				new URIError( 'Can’t load CSS file: ' + link.href ),
+			);
 		},
 	);
 	
