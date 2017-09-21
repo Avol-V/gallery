@@ -24,7 +24,7 @@ interface GridListItemState
 }
 
 /**
- * Элемент списка вида сеткой.
+ * Picture element for grid view.
  */
 class GridListItem extends StyledComponent<GridListItemProps, GridListItemState>
 {

@@ -30,7 +30,7 @@ interface GridState
 }
 
 /**
- * Вид сеткой.
+ * Grid view.
  */
 class Grid extends StyledComponent<GridProps, GridState>
 {

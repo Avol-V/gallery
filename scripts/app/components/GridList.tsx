@@ -29,7 +29,7 @@ interface GridListState
 }
 
 /**
- * Список изображений вида сеткой.
+ * Picture list for grid view.
  */
 class GridList extends StyledComponent<GridListProps, GridListState>
 {
