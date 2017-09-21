@@ -1,4 +1,5 @@
 import {h} from 'preact';
+import StyledComponent from '~/app/elements/StyledComponent';
 import {GalleryAlbumPicture} from '~/app/utils/readGalleryFile';
 import MetadataListItem, {MetadataListItemProps} from './MetadataListItem';
 
@@ -15,7 +16,7 @@ const METADATA_TITLES = {
 	exposureBias: 'Компенсация экспозиции',
 	flash: 'Вспышка',
 	focalLength: 'Фокусное расстояние',
-	focalLength35mm: 'для 35 мм',
+	focalLength35mm: 'в 35 мм эквиваленте',
 	gps: 'GPS координаты',
 };
 
@@ -29,19 +30,38 @@ interface MetadataListProps
 }
 
 /**
+ * Component State.
+ */
+interface MetadataListState
+{
+	[key: string]: void;
+}
+
+/**
  * List of the picture metadata.
  */
-function MetadataList( {picture}: MetadataListProps ): JSX.Element
+class MetadataList extends StyledComponent<MetadataListProps, MetadataListState>
 {
-	const items = getMetadata( picture );
+	/**
+	 * Component name for CSS.
+	 */
+	public static readonly CSS_NAME: string = 'c-metadata-list';
 	
-	return (
-		<dl>
-			{items.map(
-				( item ) => <MetadataListItem {...item} />,
-			)}
-		</dl>
-	);
+	/**
+	 * Render component.
+	 */
+	public render( {picture}: MetadataListProps ): JSX.Element
+	{
+		const items = getMetadata( picture );
+		
+		return (
+			<dl class="c-metadata-list" hidden={!MetadataList.cssLoaded}>
+				{items.map(
+					( item ) => <MetadataListItem {...item} />,
+				)}
+			</dl>
+		);
+	}
 }
 
 /**
@@ -99,14 +119,19 @@ function getMetadata( picture: GalleryAlbumPicture ): MetadataListItemProps[]
 	
 	if ( picture.focalLength )
 	{
-		let focalLength: string = picture.focalLength;
+		const focalLength: Array<string | JSX.Element> = [picture.focalLength];
 		
 		if (
 			( picture.focalLength35mm )
 			&& ( picture.focalLength35mm !== picture.focalLength )
 		)
 		{
-			focalLength += ` (${picture.focalLength35mm} ${METADATA_TITLES.focalLength35mm})`;
+			focalLength.push(
+				' ',
+				<span title={METADATA_TITLES.focalLength35mm}>
+					({picture.focalLength35mm})
+				</span>,
+			);
 		}
 		
 		items.push(
@@ -171,4 +196,5 @@ function getMetadata( picture: GalleryAlbumPicture ): MetadataListItemProps[]
 export {
 	MetadataList as default,
 	MetadataListProps,
+	MetadataListState,
 };

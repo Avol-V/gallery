@@ -1,6 +1,7 @@
-import {Component, h} from 'preact';
+import {h} from 'preact';
 import GridList from '~/app/components/GridList';
 import GridSidebar from '~/app/components/GridSidebar';
+import StyledComponent from '~/app/elements/StyledComponent';
 import {GalleryAlbum} from '~/app/utils/readGalleryFile';
 
 /**
@@ -25,42 +26,18 @@ interface GridProps
  */
 interface GridState
 {
-	
+	[key: string]: void;
 }
 
 /**
  * Вид сеткой.
  */
-class Grid extends Component<GridProps, GridState>
+class Grid extends StyledComponent<GridProps, GridState>
 {
-	public constructor( props: GridProps )
-	{
-		super( props );
-	}
-	
 	/**
-	 * Rendered component mounted to the DOM.
+	 * Component name for CSS.
 	 */
-	public componentDidMount(): void
-	{
-		
-	}
-	
-	/**
-	 * Before component will be unmounted and destroyed.
-	 */
-	public componentWillUnmount(): void
-	{
-		
-	}
-	
-	// /**
-	//  * Before render, return false to skip render.
-	//  */
-	// public shouldComponentUpdate( props: GridProps, state: GridState ): boolean
-	// {
-	// 	return true;
-	// }
+	public static readonly CSS_NAME: string = 'c-grid';
 	
 	/**
 	 * Render component.
@@ -71,7 +48,7 @@ class Grid extends Component<GridProps, GridState>
 	): JSX.Element
 	{
 		return (
-			<main>
+			<main class={Grid.CSS_NAME} hidden={!Grid.cssLoaded}>
 				<GridSidebar
 					picture={
 						( currentPictureIndex != null )

@@ -19,3 +19,4 @@ node_modules
 
 # Build files
 /public/scripts/
+/public/styles/

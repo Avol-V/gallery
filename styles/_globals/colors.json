@@ -1,0 +1,7 @@
+{
+	"background": "hsl(0, 0%, 10%)",
+	"item": "hsl(0, 0%, 40%)",
+	"washy": "hsl(0, 0%, 70%)",
+	"scrollbarTrack": "black",
+	"scrollbarThumb": "hsl(0, 0%, 40%)"
+}

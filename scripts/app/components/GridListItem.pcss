@@ -1,0 +1,55 @@
+.c-grid-list-item
+{
+	$image-size: 150px;
+	$image-margin: 20px;
+	
+	position: relative;
+	z-index: 1;
+	
+	display: flex;
+	overflow: hidden;
+	
+	width: calc($image-size + $image-margin * 2);
+	height: calc($image-size + $image-margin * 2);
+	margin: 1px 1px 2px;
+	
+	background: $global.colors.item;
+	
+	&::before
+	{
+		position: absolute;
+		top: -12px;
+		left: -6px;
+		
+		font-size: 60px;
+		font-weight: bold;
+		line-height: 1;
+		letter-spacing: -0.05em;
+		
+		counter-increment: item;
+		content: counter(item);
+		pointer-events: none;
+		
+		color: color($global.colors.item l(+5%));
+	}
+	
+	> img
+	{
+		z-index: 1;
+		
+		margin: auto;
+	}
+	
+	&.current,
+	&:hover
+	{
+		$clr-bg: color($global.colors.item l(+20%));
+		
+		background-color: $clr-bg;
+		
+		&::before
+		{
+			color: color($clr-bg l(-5%));
+		}
+	}
+}

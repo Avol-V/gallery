@@ -1,5 +1,6 @@
 import classJoin from 'classjoin';
 import {h} from 'preact';
+import StyledComponent from '~/app/elements/StyledComponent';
 
 /**
  * Component Properties.
@@ -15,20 +16,40 @@ interface GridListItemProps
 }
 
 /**
+ * Component State.
+ */
+interface GridListItemState
+{
+	[key: string]: void;
+}
+
+/**
  * Элемент списка вида сеткой.
  */
-function GridListItem(
-	{image, current, onSelect}: GridListItemProps,
-): JSX.Element
+class GridListItem extends StyledComponent<GridListItemProps, GridListItemState>
 {
-	return (
-		<li
-			class={classJoin( {current} )}
-			onClick={onSelect}
-		>
-			<img src={image} alt="" />
-		</li>
-	);
+	/**
+	 * Component name for CSS.
+	 */
+	public static readonly CSS_NAME: string = 'c-grid-list-item';
+	
+	/**
+	 * Render component.
+	 */
+	public render(
+		{image, current, onSelect}: GridListItemProps,
+	): JSX.Element
+	{
+		return (
+			<li
+				class={classJoin( {current}, [GridListItem.CSS_NAME] )}
+				hidden={!GridListItem.cssLoaded}
+				onClick={onSelect}
+			>
+				<img src={image} alt="" />
+			</li>
+		);
+	}
 }
 
 /**
@@ -37,4 +58,5 @@ function GridListItem(
 export {
 	GridListItem as default,
 	GridListItemProps,
+	GridListItemState,
 };

@@ -1,0 +1,31 @@
+.c-grid-list
+{
+	display: flex;
+	flex-wrap: wrap;
+	overflow-y: scroll;
+	
+	flex: auto;
+	padding: 1px 2px;
+	margin: 0;
+	
+	counter-reset: item;
+	list-style: none;
+	
+	background: $global.colors.background;
+	
+	&::-webkit-scrollbar
+	{
+		width: 10px;
+		height: 10px;
+	}
+	
+	&::-webkit-scrollbar-track
+	{
+		background: $global.colors.scrollbarTrack;
+	}
+	
+	&::-webkit-scrollbar-thumb
+	{
+		background: $global.colors.scrollbarThumb;
+	}
+}

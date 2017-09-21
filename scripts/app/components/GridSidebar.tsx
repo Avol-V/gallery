@@ -1,4 +1,5 @@
 import {h} from 'preact';
+import StyledComponent from '~/app/elements/StyledComponent';
 import {GalleryAlbumPicture} from '~/app/utils/readGalleryFile';
 import MetadataList from './MetadataList';
 import MetaHeader from './MetaHeader';
@@ -13,25 +14,44 @@ interface GridSidebarProps
 }
 
 /**
+ * Component State.
+ */
+interface GridSidebarState
+{
+	[key: string]: void;
+}
+
+/**
  * Sidebar for grid view.
  */
-function GridSidebar( {picture}: GridSidebarProps ): JSX.Element
+class GridSidebar extends StyledComponent<GridSidebarProps, GridSidebarState>
 {
-	return (
-		<aside>
-			{
-				!picture
-				? ''
-				: [
-					<figure class="preview">
-						<img src={picture.image.preview} alt={picture.source} />
-					</figure>,
-					<MetaHeader picture={picture} />,
-					<MetadataList picture={picture} />,
-				]
-			}
-		</aside>
-	);
+	/**
+	 * Component name for CSS.
+	 */
+	public static readonly CSS_NAME: string = 'c-grid-sidebar';
+	
+	/**
+	 * Render component.
+	 */
+	public render( {picture}: GridSidebarProps ): JSX.Element
+	{
+		return (
+			<aside class={GridSidebar.CSS_NAME} hidden={!GridSidebar.cssLoaded}>
+				{
+					!picture
+					? ''
+					: [
+						<figure class="preview">
+							<img src={picture.image.preview} alt={picture.source} />
+						</figure>,
+						<MetaHeader picture={picture} />,
+						<MetadataList picture={picture} />,
+					]
+				}
+			</aside>
+		);
+	}
 }
 
 /**
@@ -40,4 +60,5 @@ function GridSidebar( {picture}: GridSidebarProps ): JSX.Element
 export {
 	GridSidebar as default,
 	GridSidebarProps,
+	GridSidebarState,
 };

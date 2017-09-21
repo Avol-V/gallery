@@ -1,4 +1,5 @@
 import {h} from 'preact';
+import StyledComponent from '~/app/elements/StyledComponent';
 import {GalleryAlbumPicture} from '~/app/utils/readGalleryFile';
 import GridListItem from './GridListItem';
 
@@ -20,25 +21,44 @@ interface GridListProps
 }
 
 /**
+ * Component State.
+ */
+interface GridListState
+{
+	[key: string]: void;
+}
+
+/**
  * Список изображений вида сеткой.
  */
-function GridList(
-	{pictures, currentPictureIndex, onSelectPicture}: GridListProps,
-): JSX.Element
+class GridList extends StyledComponent<GridListProps, GridListState>
 {
-	return (
-		<ul>
-			{pictures.map(
-				( picture, index ) => (
-					<GridListItem
-						image={picture.image.thumbnail}
-						current={currentPictureIndex === index}
-						onSelect={() => onSelectPicture( index )}
-					/>
-				),
-			)}
-		</ul>
-	);
+	/**
+	 * Component name for CSS.
+	 */
+	public static readonly CSS_NAME: string = 'c-grid-list';
+	
+	/**
+	 * Render component.
+	 */
+	public render(
+		{pictures, currentPictureIndex, onSelectPicture}: GridListProps,
+	): JSX.Element
+	{
+		return (
+			<ul class={GridList.CSS_NAME} hidden={!GridList.cssLoaded}>
+				{pictures.map(
+					( picture, index ) => (
+						<GridListItem
+							image={picture.image.thumbnail}
+							current={currentPictureIndex === index}
+							onSelect={() => onSelectPicture( index )}
+						/>
+					),
+				)}
+			</ul>
+		);
+	}
 }
 
 /**
@@ -47,4 +67,5 @@ function GridList(
 export {
 	GridList as default,
 	GridListProps,
+	GridListState,
 };
