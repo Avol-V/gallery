@@ -1,5 +1,6 @@
 import {Component, h} from 'preact';
 import Grid from '~/app/scenes/Grid';
+import Loupe from '~/app/scenes/Loupe';
 import readGalleryFile, {GalleryAlbum} from '~/app/utils/readGalleryFile';
 
 /**
@@ -20,6 +21,17 @@ interface RootState
 	album: GalleryAlbum;
 	/** Index of the selected picture */
 	currentPictureIndex?: number;
+	/** Current view mode */
+	view: ViewMode;
+}
+
+/**
+ * View modes.
+ */
+enum ViewMode
+{
+	GRID,
+	LOUPE,
 }
 
 /**
@@ -39,6 +51,7 @@ class Root extends Component<RootProps, RootState>
 				title: '',
 				pictures: [],
 			},
+			view: ViewMode.GRID,
 		};
 		
 		this.fetchAlbum();
@@ -65,11 +78,18 @@ class Root extends Component<RootProps, RootState>
 	 */
 	public render(
 		_props: RootProps,
-		{album, currentPictureIndex}: RootState,
+		{album, currentPictureIndex, view}: RootState,
 	): JSX.Element
 	{
 		return (
-			<Grid
+			( view === ViewMode.GRID )
+			? <Grid
+				album={album}
+				currentPictureIndex={currentPictureIndex}
+				onSelectPicture={this.onSelectPicture}
+				onChangeView={this.onChangeView}
+			/>
+			: <Loupe
 				album={album}
 				currentPictureIndex={currentPictureIndex}
 				onSelectPicture={this.onSelectPicture}
@@ -85,6 +105,16 @@ class Root extends Component<RootProps, RootState>
 	private onSelectPicture = ( currentPictureIndex: number ): void =>
 	{
 		this.setState( {currentPictureIndex} );
+	}
+	
+	/**
+	 * Handle changing of the current view mode.
+	 * 
+	 * @param view New view mode.
+	 */
+	private onChangeView = ( view: ViewMode ): void =>
+	{
+		this.setState( {view} );
 	}
 	
 	/**
@@ -111,5 +141,6 @@ export {
 	Root as default,
 	RootProps,
 	RootState,
+	ViewMode,
 	// RootElement,
 };

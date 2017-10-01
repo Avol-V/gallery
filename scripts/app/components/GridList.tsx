@@ -1,5 +1,6 @@
 import {h} from 'preact';
 import StyledComponent from '~/app/elements/StyledComponent';
+import {ViewMode} from '~/app/Root';
 import {GalleryAlbumPicture} from '~/app/utils/readGalleryFile';
 import GridListItem from './GridListItem';
 
@@ -18,6 +19,12 @@ interface GridListProps
 	 * @param index Index of the picture in array.
 	 */
 	onSelectPicture( index: number ): void;
+	/**
+	 * Handle changing of the current view mode.
+	 * 
+	 * @param view New view mode.
+	 */
+	onChangeView( view: ViewMode ): void;
 }
 
 /**
@@ -42,7 +49,9 @@ class GridList extends StyledComponent<GridListProps, GridListState>
 	 * Render component.
 	 */
 	public render(
-		{pictures, currentPictureIndex, onSelectPicture}: GridListProps,
+		{
+			pictures, currentPictureIndex, onSelectPicture, onChangeView,
+		}: GridListProps,
 	): JSX.Element
 	{
 		return (
@@ -50,9 +59,11 @@ class GridList extends StyledComponent<GridListProps, GridListState>
 				{pictures.map(
 					( picture, index ) => (
 						<GridListItem
+							index={index}
 							image={picture.image.thumbnail}
 							current={currentPictureIndex === index}
-							onSelect={() => onSelectPicture( index )}
+							onSelectPicture={onSelectPicture}
+							onChangeView={onChangeView}
 						/>
 					),
 				)}

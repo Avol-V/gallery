@@ -1,0 +1,28 @@
+.c-loupe-sidebar
+{
+	overflow-x: hidden;
+	overflow-y: auto;
+	
+	flex: none;
+	order: 1;
+	width: 300px;
+	padding: 20px;
+	
+	background: $global.colors.background;
+	
+	&::-webkit-scrollbar
+	{
+		width: 4px;
+		height: 4px;
+	}
+	
+	&::-webkit-scrollbar-track
+	{
+		background: $global.colors.scrollbarTrack;
+	}
+	
+	&::-webkit-scrollbar-thumb
+	{
+		background: $global.colors.scrollbarThumb;
+	}
+}

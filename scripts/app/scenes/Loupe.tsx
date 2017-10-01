@@ -1,14 +1,13 @@
 import {h} from 'preact';
-import GridList from '~/app/components/GridList';
-import GridSidebar from '~/app/components/GridSidebar';
+import LoupeSidebar from '~/app/components/LoupeSidebar';
+import LoupeWindow from '~/app/components/LoupeWindow';
 import StyledComponent from '~/app/elements/StyledComponent';
-import {ViewMode} from '~/app/Root';
 import {GalleryAlbum} from '~/app/utils/readGalleryFile';
 
 /**
  * Component Properties.
  */
-interface GridProps
+interface LoupeProps
 {
 	/** Gallery album */
 	album: GalleryAlbum;
@@ -20,54 +19,46 @@ interface GridProps
 	 * @param index Index of the picture in array.
 	 */
 	onSelectPicture( index: number ): void;
-	/**
-	 * Handle changing of the current view mode.
-	 * 
-	 * @param view New view mode.
-	 */
-	onChangeView( view: ViewMode ): void;
 }
 
 /**
  * Component State.
  */
-interface GridState
+interface LoupeState
 {
 	[key: string]: void;
 }
 
 /**
- * Grid view.
+ * Loupe view.
  */
-class Grid extends StyledComponent<GridProps, GridState>
+class Loupe extends StyledComponent<LoupeProps, LoupeState>
 {
 	/**
 	 * Component name for CSS.
 	 */
-	public static readonly CSS_NAME: string = 'c-grid';
+	public static readonly CSS_NAME: string = 'c-loupe';
 	
 	/**
 	 * Render component.
 	 */
 	public render(
-		{album, currentPictureIndex, onSelectPicture, onChangeView}: GridProps,
-		// state: GridState,
+		{album, currentPictureIndex, onSelectPicture}: LoupeProps,
 	): JSX.Element
 	{
 		return (
-			<main class={Grid.CSS_NAME} hidden={!Grid.cssLoaded}>
-				<GridSidebar
+			<main class={Loupe.CSS_NAME} hidden={!Loupe.cssLoaded}>
+				<LoupeSidebar
 					picture={
 						( currentPictureIndex != null )
 						? album.pictures[currentPictureIndex]
 						: undefined
 					}
 				/>
-				<GridList
+				<LoupeWindow
 					pictures={album.pictures}
 					currentPictureIndex={currentPictureIndex}
 					onSelectPicture={onSelectPicture}
-					onChangeView={onChangeView}
 				/>
 			</main>
 		);
@@ -78,7 +69,7 @@ class Grid extends StyledComponent<GridProps, GridState>
  * Module.
  */
 export {
-	Grid as default,
-	GridProps,
-	GridState,
+	Loupe as default,
+	LoupeProps,
+	LoupeState,
 };
