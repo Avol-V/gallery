@@ -45,6 +45,39 @@ class GridListItem extends StyledComponent<GridListItemProps, GridListItemState>
 	 * Component name for CSS.
 	 */
 	public static readonly CSS_NAME: string = 'c-grid-list-item';
+	/**
+	 * Element reference.
+	 */
+	private element: HTMLElement;
+	
+	/**
+	 * Rendered component mounted to the DOM.
+	 */
+	public componentDidMount(): void
+	{
+		if ( !this.props.current )
+		{
+			return;
+		}
+		
+		// Async wait.
+		setTimeout(
+			// Render wait.
+			() => requestAnimationFrame(
+				() =>
+				{
+					if ( this.element )
+					{
+						const top = this.element.getBoundingClientRect().top;
+						
+						// tslint:disable-next-line:no-non-null-assertion
+						this.element.parentElement!.scrollBy( 0, top );
+					}
+				},
+			),
+			0,
+		);
+	}
 	
 	/**
 	 * Render component.
@@ -58,6 +91,7 @@ class GridListItem extends StyledComponent<GridListItemProps, GridListItemState>
 				class={classJoin( {current}, [GridListItem.CSS_NAME] )}
 				hidden={!GridListItem.cssLoaded}
 				onClick={this.onClick}
+				ref={this.refElement}
 			>
 				<img src={image} alt="" />
 			</li>
@@ -79,6 +113,14 @@ class GridListItem extends StyledComponent<GridListItemProps, GridListItemState>
 		{
 			onSelectPicture( index );
 		}
+	}
+	
+	/**
+	 * Save reference to component root element.
+	 */
+	private refElement = ( element: HTMLElement ): void =>
+	{
+		this.element = element;
 	}
 }
 
