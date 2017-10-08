@@ -1,5 +1,6 @@
 import {h} from 'preact';
 import StyledComponent from '~/app/elements/StyledComponent';
+import {ViewMode} from '~/app/Root';
 import {GalleryAlbumPicture} from '~/app/utils/readGalleryFile';
 
 /**
@@ -17,6 +18,12 @@ interface LoupeWindowProps
 	 * @param index Index of the picture in array.
 	 */
 	onSelectPicture( index: number ): void;
+	/**
+	 * Handle changing of the current view mode.
+	 * 
+	 * @param view New view mode.
+	 */
+	onChangeView( view: ViewMode ): void;
 }
 
 /**
@@ -50,6 +57,12 @@ class LoupeWindow extends StyledComponent<LoupeWindowProps, LoupeWindowState>
 			<div class={LoupeWindow.CSS_NAME} hidden={!LoupeWindow.cssLoaded}>
 				<img src={picture.image.normal} alt="" />
 				<div class="controls">
+					<button type="button"
+						class="close"
+						onClick={this.onCloseClick}
+					>
+						Закрыть
+					</button>
 					<button type="button"
 						class="prev"
 						disabled={currentPictureIndex === 0}
@@ -97,6 +110,14 @@ class LoupeWindow extends StyledComponent<LoupeWindowProps, LoupeWindowState>
 		}
 		
 		this.props.onSelectPicture( prevIndex );
+	}
+	
+	/**
+	 * On close view click.
+	 */
+	private onCloseClick = (): void =>
+	{
+		this.props.onChangeView( ViewMode.GRID );
 	}
 }
 

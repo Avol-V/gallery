@@ -93,6 +93,7 @@ class Root extends Component<RootProps, RootState>
 				album={album}
 				currentPictureIndex={currentPictureIndex}
 				onSelectPicture={this.onSelectPicture}
+				onChangeView={this.onChangeView}
 			/>
 		);
 	}

@@ -2,6 +2,7 @@ import {h} from 'preact';
 import LoupeSidebar from '~/app/components/LoupeSidebar';
 import LoupeWindow from '~/app/components/LoupeWindow';
 import StyledComponent from '~/app/elements/StyledComponent';
+import {ViewMode} from '~/app/Root';
 import {GalleryAlbum} from '~/app/utils/readGalleryFile';
 
 /**
@@ -19,6 +20,12 @@ interface LoupeProps
 	 * @param index Index of the picture in array.
 	 */
 	onSelectPicture( index: number ): void;
+	/**
+	 * Handle changing of the current view mode.
+	 * 
+	 * @param view New view mode.
+	 */
+	onChangeView( view: ViewMode ): void;
 }
 
 /**
@@ -43,7 +50,7 @@ class Loupe extends StyledComponent<LoupeProps, LoupeState>
 	 * Render component.
 	 */
 	public render(
-		{album, currentPictureIndex, onSelectPicture}: LoupeProps,
+		{album, currentPictureIndex, onSelectPicture, onChangeView}: LoupeProps,
 	): JSX.Element
 	{
 		return (
@@ -59,6 +66,7 @@ class Loupe extends StyledComponent<LoupeProps, LoupeState>
 					pictures={album.pictures}
 					currentPictureIndex={currentPictureIndex}
 					onSelectPicture={onSelectPicture}
+					onChangeView={onChangeView}
 				/>
 			</main>
 		);
