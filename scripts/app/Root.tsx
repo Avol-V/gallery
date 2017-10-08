@@ -58,22 +58,6 @@ class Root extends Component<RootProps, RootState>
 	}
 	
 	/**
-	 * Rendered component mounted to the DOM.
-	 */
-	public componentDidMount(): void
-	{
-		
-	}
-	
-	/**
-	 * Before component will be unmounted and destroyed.
-	 */
-	public componentWillUnmount(): void
-	{
-		
-	}
-	
-	/**
 	 * Render component.
 	 */
 	public render(
@@ -129,12 +113,6 @@ class Root extends Component<RootProps, RootState>
 	}
 }
 
-// /**
-//  * Корневой элемент приложения.
-//  */
-// // tslint:disable-next-line:variable-name
-// const RootElement = <Root />;
-
 /**
  * Module.
  */
@@ -143,5 +121,4 @@ export {
 	RootProps,
 	RootState,
 	ViewMode,
-	// RootElement,
 };
