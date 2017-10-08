@@ -10,9 +10,17 @@
 	
 	> img
 	{
+		flex: none;
 		max-width: 100%;
 		max-height: 100%;
 		margin: auto;
+		
+		object-fit: contain;
+		
+		&.loading
+		{
+			filter: blur(4px);
+		}
 	}
 	
 	> div.controls

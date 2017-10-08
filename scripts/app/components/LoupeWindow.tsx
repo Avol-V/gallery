@@ -2,6 +2,7 @@ import {h} from 'preact';
 import StyledComponent from '~/app/elements/StyledComponent';
 import {ViewMode} from '~/app/Root';
 import {GalleryAlbumPicture} from '~/app/utils/readGalleryFile';
+import ImageWithPreview from './ImageWithPreview';
 
 /**
  * Component Properties.
@@ -43,6 +44,10 @@ class LoupeWindow extends StyledComponent<LoupeWindowProps, LoupeWindowState>
 	 * Component name for CSS.
 	 */
 	public static readonly CSS_NAME: string = 'c-loupe-window';
+	/**
+	 * Size of the image in pixels.
+	 */
+	private static readonly IMAGE_SIZE: number = 1280;
 	
 	/**
 	 * Render component.
@@ -53,9 +58,39 @@ class LoupeWindow extends StyledComponent<LoupeWindowProps, LoupeWindowState>
 	{
 		const picture = pictures[currentPictureIndex || 0];
 		
+		const pictureWidth = picture.width || 0;
+		const pictureHeight = picture.height || 0;
+		const landscape = ( pictureWidth > pictureHeight );
+		const ratio = (
+			landscape
+			? pictureHeight / pictureWidth
+			: pictureWidth / pictureHeight
+		);
+		let width: number | undefined;
+		let height: number | undefined;
+		
+		if ( isFinite( ratio ) )
+		{
+			if ( landscape )
+			{
+				width = LoupeWindow.IMAGE_SIZE;
+				height = Math.round( width * ratio );
+			}
+			else
+			{
+				height = LoupeWindow.IMAGE_SIZE;
+				width = Math.round( height * ratio );
+			}
+		}
+		
 		return (
 			<div class={LoupeWindow.CSS_NAME} hidden={!LoupeWindow.cssLoaded}>
-				<img src={picture.image.normal} alt="" />
+				<ImageWithPreview
+					src={picture.image.normal}
+					preview={picture.image.thumbnail}
+					width={width}
+					height={height}
+				/>
 				<div class="controls">
 					<button type="button"
 						class="close"
